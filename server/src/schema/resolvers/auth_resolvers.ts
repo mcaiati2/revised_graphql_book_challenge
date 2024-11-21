@@ -1,13 +1,14 @@
 import type { Request, Response } from 'express';
+
 // import jwt from 'jsonwebtoken';
 import { Types } from 'mongoose';
 import User from '../../models/User.js';
 import { signToken } from '../../services/auth.js';
 import { getErrorMessage } from '../../helpers/index.js';
 import { GraphQLError } from 'graphql';
+
 // const { sign } = jwt;
 const auth_resolvers = {
-
 
   Query: {
     getUser: async (_: any, __: any, { req }: { req: Request }): Promise<{ user: any | null }> => {
@@ -28,8 +29,6 @@ const auth_resolvers = {
       };
     }
   },
-
-
 
   Mutation: {
 
@@ -57,8 +56,6 @@ const auth_resolvers = {
       }
     },
 
-
-
     loginUser: async (_: any, input: { email: string; password: string; }, { res }: { res: Response }) => {
       const user = await User.findOne({ email: input.email });
       if (!user) {
@@ -77,8 +74,6 @@ const auth_resolvers = {
       return { user };
     },
 
-
-
     logoutUser: async (_: any, __: any, { res }: { res: Response }) => {
       res.clearCookie('book_app_token');
       return {
@@ -88,10 +83,4 @@ const auth_resolvers = {
   }
 };
 
-
-
-
 export default auth_resolvers;
-
-
-

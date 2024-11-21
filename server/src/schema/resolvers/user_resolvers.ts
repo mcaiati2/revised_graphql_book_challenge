@@ -7,14 +7,14 @@ const user_resolvers = {
     getUserBooks: async (_: any, __: any, { req }: { req: any }) => {
       const user_id = req.user_id;
 
-      // If the client didn't send a cookie, we just send back an empty array
+      // Send back an empty array if the client does NOT send a cookie
       if (!user_id) {
         return [];
       }
 
       const user = await User.findById(user_id);
 
-      // Return just the user's books array, not the user object
+      // Return just the user's books array, (not the user object)
       return user?.savedBooks;
     }
   },
@@ -33,7 +33,7 @@ const user_resolvers = {
           { new: true, runValidators: true } 
         );
 
-        // Return generic response - This is NOT used on the client-side, but we must return a response
+        // Return generic response - This is NOT used on the client-side (but we must return a response)
         return {
           message: 'Book saved successfully!'
         };
@@ -56,7 +56,7 @@ const user_resolvers = {
         throw new GraphQLError("Couldn't find user with this id!");
       }
 
-      // Return generic response - This is NOT used on the client-side, but we must return a response
+      // Return generic response - This is NOT used on the client-side (but we must return a response)
       return {
         message: 'Book deleted successfully!'
       };

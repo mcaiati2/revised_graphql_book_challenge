@@ -7,6 +7,7 @@ import { useMutation } from '@apollo/client';
 import { LOGOUT_USER } from '../graphql/mutations';
 
 const AppNavbar = () => {
+  
   // set modal display state
   const [showModal, setShowModal] = useState(false);
   const {state, setState} = useStore()!;

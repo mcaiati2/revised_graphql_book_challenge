@@ -1,7 +1,6 @@
 import { Schema, model, Types, type Document } from 'mongoose';
 import bcrypt from 'bcrypt';
 
-// import schema from Book.js
 import bookSchema, { BookDocument } from './schemas/Book.js';
 
 export interface UserDocument extends Document {
@@ -42,7 +41,7 @@ const userSchema = new Schema<UserDocument>(
   }
 );
 
-// hash user password
+// This will hash the user password with 10 salt rounds
 userSchema.pre('save', async function (next) {
   if (this.isNew || this.isModified('password')) {
     const saltRounds = 10;
@@ -52,12 +51,12 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
-// custom method to compare and validate password for logging in
+// Compare & validate password
 userSchema.methods.validatePassword = async function (password: string) {
   return await bcrypt.compare(password, this.password);
 };
 
-// when we query a user, we'll also get another field called `bookCount` with the number of saved books we have
+// Returns the number of saved books a user has when we query a user
 userSchema.virtual('bookCount').get(function () {
   return this.savedBooks.length;
 });
