@@ -22,7 +22,7 @@ const server = new ApolloServer({
 });
 // app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-// Give routes access to req.cookies
+// Gives routes access to req.cookies
 app.use(cookieParser());
 // if we're in production, serve client/build as static assets and ensure the index.html file is served for the React Router to handle UI views
 if (process.env.PORT) {
